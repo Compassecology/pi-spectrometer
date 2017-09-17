@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"image"
-	_ "image/png"
+	_ "image/jpeg"
 	"log"
 	"os"
 	"os/exec"
@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Println("Raspberry PI Spectrometer")
-	fileName := time.Now().Format("2006-01-02_15:04::05") + ".png"
+	fileName := time.Now().Format("2006-01-02_15:04::05") + ".jpg"
 	cmd := exec.Command("raspistill", "-o", fileName)
 	_, err := cmd.StdoutPipe()
 	if err != nil {
@@ -24,7 +24,7 @@ func main() {
 	}
 	cmd.Wait()
 
-	reader, err := os.Open("2017-09-17_12:52::50.png")
+	reader, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
