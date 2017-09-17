@@ -44,6 +44,7 @@ func main() {
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			r, g, b, a := m.At(x, y).RGBA()
+			log.Println(r, g, b)
 			// A color's RGBA method returns values in the range [0, 65535].
 			// Shifting by 12 reduces this to the range [0, 15].
 			histogram[r>>12][0]++
