@@ -25,28 +25,28 @@ func main() {
 }
 
 //SaveImage from camera
+//Wraper for raspistill command
+//-n suppress preview
+//-o output file
 func SaveImage() {
-	cmd := exec.Command("raspistill", "-w", "-o", "image.jpg")
-	_, err := cmd.StdoutPipe()
-	LogFatal(err)
-	err = cmd.Start()
-	LogFatal(err)
+	cmd := exec.Command("raspistill", "-n", "-o", "image.jpg")
+	err := cmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
 	cmd.Wait()
 }
 
 //OpenImage and load it into memory
 func OpenImage() image.Image {
 	reader, err := os.Open("image.jpg")
-	LogFatal(err)
-	defer reader.Close()
-	img, _, err := image.Decode(reader)
-	LogFatal(err)
-	return img
-}
-
-//LogFatal quit program if we get an error
-func LogFatal(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer reader.Close()
+	img, _, err := image.Decode(reader)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return img
 }
