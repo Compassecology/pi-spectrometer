@@ -11,14 +11,15 @@ import (
 
 func main() {
 	fmt.Println("Raspberry PI Spectrometer")
-
+	fmt.Println("Saving Image From Camera")
 	SaveImage()
+	fmt.Println("Open Image Into Memory")
 	img := OpenImage()
 	bounds := img.Bounds()
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			r, g, b, a := img.At(x, y).RGBA()
-			fmt.Printf("At(%v,%v) : R%v G%v B%v A%v", x, y, r, g, b, a)
+			fmt.Printf("At(%v,%v) : R%v G%v B%v A%v\n", x, y, r, g, b, a)
 		}
 	}
 }
